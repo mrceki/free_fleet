@@ -22,6 +22,7 @@
 #include <free_fleet/messages/ModeRequest.hpp>
 #include <free_fleet/messages/PathRequest.hpp>
 #include <free_fleet/messages/DestinationRequest.hpp>
+#include <free_fleet/messages/TaskRequest.hpp>
 #include <free_fleet/Client.hpp>
 #include <free_fleet/ClientConfig.hpp>
 
@@ -59,6 +60,10 @@ public:
     /// DDS subscriber for destination requests coming from the server
     dds::DDSSubscribeHandler<FreeFleetData_DestinationRequest>::SharedPtr
         destination_request_sub;
+        
+    /// DDS subscriber for task requests coming from the server
+    dds::DDSSubscribeHandler<FreeFleetData_TaskRequest>::SharedPtr
+        task_request_sub; 
   };
 
   ClientImpl(const ClientConfig& config);
@@ -75,6 +80,9 @@ public:
 
   bool read_destination_request(
       messages::DestinationRequest& destination_request);
+  
+  bool read_task_request(
+      messages::TaskRequest& task_request);
 
 private:
 

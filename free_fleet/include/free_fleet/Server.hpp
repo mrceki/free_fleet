@@ -27,6 +27,7 @@
 #include <free_fleet/messages/ModeRequest.hpp>
 #include <free_fleet/messages/PathRequest.hpp>
 #include <free_fleet/messages/DestinationRequest.hpp>
+#include <free_fleet/messages/TaskRequest.hpp>
 
 namespace free_fleet {
 
@@ -81,6 +82,9 @@ public:
   ///   True if the destination request was successfully sent, false otherwise.
   bool send_destination_request(
       const messages::DestinationRequest& destination_request);
+
+  bool send_task_request(
+      const messages::TaskRequest& task_request);
 
   /// Destructor
   ~Server();

@@ -192,5 +192,25 @@ void convert(
   _output.task_id = std::string(_input.task_id);
 }
 
+void convert(
+    const TaskRequest& _input,
+    FreeFleetData_TaskRequest& _output)
+{
+  _output.fleet_name = common::dds_string_alloc_and_copy(_input.fleet_name);
+  _output.robot_name = common::dds_string_alloc_and_copy(_input.robot_name);
+  _output.task_id = common::dds_string_alloc_and_copy(_input.task_id);
+  _output.task_type = common::dds_string_alloc_and_copy(_input.task_type);
+}
+
+void convert(
+    const FreeFleetData_TaskRequest& _input,
+    TaskRequest& _output)
+{
+  _output.fleet_name = std::string(_input.fleet_name);
+  _output.robot_name = std::string(_input.robot_name);
+  _output.task_id = std::string(_input.task_id);
+  _output.task_type = std::string(_input.task_type);
+}
+
 } // namespace messages
 } // namespace free_fleet

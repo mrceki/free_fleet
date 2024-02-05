@@ -26,6 +26,7 @@
 #include <free_fleet/messages/ModeRequest.hpp>
 #include <free_fleet/messages/PathRequest.hpp>
 #include <free_fleet/messages/DestinationRequest.hpp>
+#include <free_fleet/messages/TaskRequest.hpp>
 
 namespace free_fleet {
 
@@ -83,6 +84,9 @@ public:
   ///   True if a new destination request was received, false otherwise.
   bool read_destination_request(
       messages::DestinationRequest& destination_request);
+
+  bool read_task_request(
+      messages::TaskRequest& task_request);
 
   /// Destructor
   ~Client();

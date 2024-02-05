@@ -87,4 +87,14 @@ bool Server::ServerImpl::send_destination_request(
   return sent;
 }
 
+bool Server::ServerImpl::send_task_request(
+    const messages::TaskRequest& _task_request)
+{
+  FreeFleetData_TaskRequest* new_tr = FreeFleetData_TaskRequest__alloc();
+  convert(_task_request, *new_tr);
+  bool sent = fields.task_request_pub->write(new_tr);
+  FreeFleetData_TaskRequest_free(new_tr, DDS_FREE_ALL);
+  return sent;
+}
+
 } // namespace free_fleet

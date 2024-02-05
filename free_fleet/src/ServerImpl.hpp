@@ -58,6 +58,10 @@ public:
     /// DDS publisher for destination requests to be sent to clients
     dds::DDSPublishHandler<FreeFleetData_DestinationRequest>::SharedPtr
         destination_request_pub;
+    
+    /// DDS publisher for task requests to be sent to clients
+    dds::DDSPublishHandler<FreeFleetData_TaskRequest>::SharedPtr
+        task_request_pub;
   };
 
   ServerImpl(const ServerConfig& config);
@@ -74,6 +78,9 @@ public:
 
   bool send_destination_request(
       const messages::DestinationRequest& destination_request);
+  
+  bool send_task_request(
+      const messages::TaskRequest& task_request);
 
 private:
 

@@ -33,6 +33,9 @@
 #include <rmf_fleet_msgs/msg/mode_request.hpp>
 #include <rmf_fleet_msgs/msg/path_request.hpp>
 #include <rmf_fleet_msgs/msg/destination_request.hpp>
+#include <rmf_task_msgs/srv/submit_task.hpp>
+#include <rmf_dispenser_msgs/msg/dispenser_request.hpp>
+#include <rmf_ingestor_msgs/msg/ingestor_request.hpp>
 
 #include <free_fleet/Server.hpp>
 #include <free_fleet/messages/Location.hpp>
@@ -72,6 +75,8 @@ public:
 
 private:
 
+  rclcpp::Client<rmf_task_msgs::srv::SubmitTask>::SharedPtr task_dispatcher_client_;
+
   bool is_request_valid(
       const std::string& fleet_name, const std::string& robot_name);
 
@@ -107,6 +112,25 @@ private:
 
   // --------------------------------------------------------------------------
 
+
+  rclcpp::Subscription<rmf_dispenser_msgs::msg::DispenserRequest>::SharedPtr
+      dispenser_request_sub;
+
+  void handle_dispenser_request(
+      rmf_dispenser_msgs::msg::DispenserRequest::UniquePtr msg);
+
+  // --------------------------------------------------------------------------
+
+  rclcpp::Subscription<rmf_ingestor_msgs::msg::IngestorRequest>::SharedPtr
+      ingestor_request_sub;
+      
+  void handle_ingestor_request(
+      rmf_ingestor_msgs::msg::IngestorRequest::UniquePtr msg);
+      
+  // --------------------------------------------------------------------------
+
+
+  // --------------------------------------------------------------------------
   rclcpp::CallbackGroup::SharedPtr update_state_callback_group;
 
   rclcpp::TimerBase::SharedPtr update_state_timer;

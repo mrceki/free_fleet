@@ -15,25 +15,24 @@
  *
  */
 
-#ifndef FREE_FLEET__INCLUDE__FREE_FLEET__CLIENTCONFIG_HPP
-#define FREE_FLEET__INCLUDE__FREE_FLEET__CLIENTCONFIG_HPP
+#ifndef FREE_FLEET__INCLUDE__FREE_FLEET__MESSAGES__TASKREQUEST_HPP
+#define FREE_FLEET__INCLUDE__FREE_FLEET__MESSAGES__TASKREQUEST_HPP
 
 #include <string>
+#include <vector>
 
 namespace free_fleet {
+namespace messages {
 
-struct ClientConfig
+struct TaskRequest
 {
-  int dds_domain = 42;
-  std::string dds_state_topic = "robot_state";
-  std::string dds_mode_request_topic = "mode_request";
-  std::string dds_path_request_topic = "path_request";
-  std::string dds_destination_request_topic = "destination_request";
-  std::string dds_task_request_topic = "task_request";
-
-  void print_config() const;
+    std::string fleet_name;
+    std::string robot_name;
+    std::string task_id;
+    std::string task_type;
 };
 
+} // namespace messages
 } // namespace free_fleet
 
-#endif // FREE_FLEET__INCLUDE__FREE_FLEET__CLIENTCONFIG_HPP
+#endif // FREE_FLEET__INCLUDE__FREE_FLEET__MESSAGES__TASKREQUEST_HPP

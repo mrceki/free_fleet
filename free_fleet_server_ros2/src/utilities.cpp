@@ -16,7 +16,7 @@
  */
 
 #include "utilities.hpp"
-
+#include "ServerNode.hpp"
 namespace free_fleet
 {
 namespace ros2
@@ -33,6 +33,62 @@ void to_ff_message(
   _out_msg.level_name = _in_msg.level_name;
 }
 
+// void to_ff_message(
+//     const rmf_fleet_msgs::msg::ModeRequest& _in_msg, 
+//     messages::ModeRequest& _out_msg,
+//     rclcpp::Client<rmf_task_msgs::srv::SubmitTask>::SharedPtr client)
+// {
+//     auto request = std::make_shared<rmf_task_msgs::srv::SubmitTask::Request>();
+//     request->requester = _in_msg.task_id;
+//     request->description.task_type.type = _in_msg.mode.mode;
+
+//     // Servisin hazır olmasını bekleyin
+//     // if (!client->wait_for_service(std::chrono::seconds(1))) {
+//     //     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Service not available. Exiting.");
+//     //     return;
+//     // }
+
+//     // Servis çağrısı yapın
+//     if (!client) {
+//         RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Task dispatcher client is null.");
+//         return;
+//     }
+//     else{
+//         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Task dispatcher client is not null.");
+//     }
+//     auto result = client->async_send_request(request, 
+//         [&_out_msg, &_in_msg](rclcpp::Client<rmf_task_msgs::srv::SubmitTask>::SharedFuture future) {
+//             RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Task dispatcher client ready");
+//             auto response = future.get();
+//             RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Hop");
+//             if (response) {
+//               RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Response: %s", response->task_id.c_str());
+//             } else {
+//               RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Failed to call service");
+//             }
+
+//             if (response) {
+//                 RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "HELLO");
+//                 _out_msg.fleet_name = _in_msg.fleet_name;
+//                 RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "UPS");
+//                 _out_msg.robot_name = _in_msg.robot_name;
+//                 _out_msg.mode.mode = _in_msg.mode.mode;
+//                 _out_msg.task_id = _in_msg.task_id;
+//                 RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "BYE");
+//                 for (const auto& parameter : _in_msg.parameters)
+//                 { 
+//                     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "response->task_id: %s", response->task_id.c_str());
+//                     messages::ModeParameter mode_parameter;
+//                     mode_parameter.name = parameter.name;
+//                     mode_parameter.value = response->task_id;
+//                     _out_msg.parameters.push_back(mode_parameter);
+//                 }
+//             } else {
+//                 RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Failed to call service");
+//             }
+//         }
+//     );
+// }
 void to_ff_message(
     const rmf_fleet_msgs::msg::ModeRequest& _in_msg, 
     messages::ModeRequest& _out_msg)
@@ -41,6 +97,14 @@ void to_ff_message(
   _out_msg.robot_name = _in_msg.robot_name;
   _out_msg.mode.mode = _in_msg.mode.mode;
   _out_msg.task_id = _in_msg.task_id;
+
+  for (const auto& parameter : _in_msg.parameters)
+  {
+    messages::ModeParameter mode_parameter;
+    mode_parameter.name = parameter.name;
+    mode_parameter.value = parameter.value;
+    _out_msg.parameters.push_back(mode_parameter);
+  }
 }
 
 void to_ff_message(

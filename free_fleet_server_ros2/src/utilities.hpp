@@ -18,11 +18,14 @@
 #ifndef FREE_FLEET_SERVER_ROS2__SRC__UTILITIES_HPP
 #define FREE_FLEET_SERVER_ROS2__SRC__UTILITIES_HPP
 
+#include <rclcpp/rclcpp.hpp>
+
 #include <rmf_fleet_msgs/msg/location.hpp>
 #include <rmf_fleet_msgs/msg/robot_state.hpp>
 #include <rmf_fleet_msgs/msg/mode_request.hpp>
 #include <rmf_fleet_msgs/msg/path_request.hpp>
 #include <rmf_fleet_msgs/msg/destination_request.hpp>
+#include <rmf_task_msgs/srv/submit_task.hpp>
 
 #include <free_fleet/messages/Location.hpp>
 #include <free_fleet/messages/RobotState.hpp>
@@ -41,7 +44,7 @@ void to_ff_message(
 void to_ff_message(
     const rmf_fleet_msgs::msg::ModeRequest& in_msg, 
     messages::ModeRequest& out_msg);
-
+    // rclcpp::Client<rmf_task_msgs::srv::SubmitTask>::SharedPtr client)
 void to_ff_message(
     const rmf_fleet_msgs::msg::PathRequest& in_msg, 
     messages::PathRequest& out_msg);

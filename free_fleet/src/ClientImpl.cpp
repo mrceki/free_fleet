@@ -84,4 +84,16 @@ bool Client::ClientImpl::read_destination_request(
   return false;
 }
 
+bool Client::ClientImpl::read_task_request(
+    messages::TaskRequest& _task_request)
+{
+  auto task_requests = fields.task_request_sub->read();
+  if (!task_requests.empty())
+  {
+    convert(*(task_requests[0]), _task_request);
+    return true;
+  }
+  return false;
+}
+
 } // namespace free_fleet

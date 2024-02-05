@@ -130,6 +130,11 @@ private:
   bool read_destination_request();
 
   // --------------------------------------------------------------------------
+  // Task request handling
+
+  bool read_task_request();
+
+  // --------------------------------------------------------------------------
   // Task handling
 
   bool is_valid_request(
